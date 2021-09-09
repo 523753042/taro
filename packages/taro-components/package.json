@@ -42,7 +42,7 @@
     "better-scroll": "^1.14.1",
     "classnames": "^2.2.5",
     "intersection-observer": "^0.7.0",
-    "omit.js": "^1.0.0",
+    "omit.js": "^2.0.2",
     "resolve-pathname": "^3.0.0",
     "swiper": "6.8.0",
     "weui": "^1.1.2"
