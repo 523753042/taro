@@ -1,4 +1,5 @@
 import React, { ComponentType } from 'react'
+import { ListRenderItemInfo } from 'react-native'
 import { StyleProp, ViewStyle, NativeSyntheticEvent, NativeScrollEvent } from 'react-native'
 export interface ViewProps {
   style?: StyleProp<ViewStyle>;
@@ -42,7 +43,7 @@ export interface VirtualListProps<T> {
     index: number;
     /** 组件是否正在滚动，当 useIsScrolling 值为 true 时返回布尔值，否则返回 undefined */
     // isScrolling?: boolean
-  }>;
+  } & ListRenderItemInfo<any>>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

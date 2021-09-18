@@ -5,13 +5,14 @@
  */
 
 import * as React from 'react'
-import {
-  View
-} from 'react-native'
+import { View } from 'react-native'
 import { noop } from '../../utils'
-import { FormProps, FormValues } from './PropsType'
 
-function isFormTypeElement (typeName: string): boolean {
+import { FormProps, FormValues, FormComponentMap } from './PropsType'
+
+
+
+function isFormTypeElement(typeName: string): boolean {
   return [
     '_Input',
     '_Textarea',
@@ -26,37 +27,40 @@ function isFormTypeElement (typeName: string): boolean {
 class _Form extends React.Component<FormProps> {
   formValues: FormValues = {}
 
-  bindValueChangeEvent = (child: React.ReactElement): React.ReactNode => {
+  /**
+   * 处理受控的表单组件及初始化值
+   */
+  bindValueChangeEvent<T extends keyof FormComponentMap>(child: React.ReactElement<FormComponentMap[T], React.ComponentType<FormComponentMap[T]>>) {
     // onChange: _CheckboxGroup _RadioGroup _Switch _Slider _Picker
     // onBlur: _Input _Textarea
-    // @ts-ignore
     const childTypeName = child.type && child.type.name
-    const childPropsName = child.props.name
-    const valueChangeCbName = childTypeName === '_Input' || childTypeName === '_Textarea' ? 'onBlur' : 'onChange'
+    const childPropsName = (child.props.name as string)
+    const valueChangeCbName = ['_Input', '_Textarea'].indexOf(childTypeName) > -1 ? 'onBlur' : 'onChange'
     const tmpProps = { ...child.props }
     // Initial value
-    if (['_Input', '_Textarea', '_Slider', '_Picker'].indexOf(childTypeName) >= 0) {
-      this.formValues[childPropsName] = child.props.value
+    // value: _Input', '_Textarea', '_Slider', '_Picker
+    // _Switch: checked
+    // value: _CheckboxGroup , _RadioGroup
+    if (['_Input', '_Textarea', '_Slider', '_Picker'].indexOf(childTypeName) > -1) {
+      this.formValues[childPropsName] = (child as React.ReactElement<FormComponentMap[keyof { _Input, _Textarea, _Slider, _Picker }], React.ComponentType<FormComponentMap[keyof { _Input, _Textarea, _Slider, _Picker }]>>).props.value
     } else if (childTypeName === '_Switch') {
-      this.formValues[childPropsName] = !!child.props.checked
+      this.formValues[childPropsName] = !!((child as React.ReactElement<FormComponentMap['_Switch'], React.ComponentType<FormComponentMap['_Switch']>>)).props.checked
     } else {
-      tmpProps._onGroupDataInitial = (value: any) => {
+      (tmpProps as FormComponentMap[keyof { _CheckboxGroup, _RadioGroup }])._onGroupDataInitial = (value: any) => {
         this.formValues[childPropsName] = value
       }
     }
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this
     tmpProps[valueChangeCbName] = function (event: any) {
       const valueChangeCb = child.props[valueChangeCbName] || noop
       self.formValues[childPropsName] = event.detail.value
-      // eslint-disable-next-line prefer-rest-params
       valueChangeCb(...arguments)
     }
-    return React.cloneElement(child, tmpProps, child.props.children)
+    // return React.cloneElement(child, tmpProps, child.props.children)
   }
 
   deppDiveIntoChildren = (children: React.ReactNode): React.ReactNode => {
-    return React.Children.toArray(children).map((child: any) => {
+    return React.Children.toArray(children).map((child: React.ReactElement<any, any>) => {
       const childTypeName = child.type && child.type.name
       if (!child.type) return child
       if (childTypeName === '_Button' && ['submit', 'reset'].indexOf(child.props.formType) >= 0) {
@@ -70,8 +74,8 @@ class _Form extends React.Component<FormProps> {
           }
         })
       }
-      return isFormTypeElement(childTypeName) && child.props.name
-        ? this.bindValueChangeEvent(child)
+      return isFormTypeElement(childTypeName) && (child.props.name as keyof FormComponentMap)
+        ? this.bindValueChangeEvent<typeof child.props.name>(child)
         : React.cloneElement(child, { ...child.props }, this.deppDiveIntoChildren(child.props.children))
     })
   }
@@ -90,7 +94,7 @@ class _Form extends React.Component<FormProps> {
     onReset()
   }
 
-  render (): JSX.Element {
+  render(): JSX.Element {
     const {
       children,
       style,
