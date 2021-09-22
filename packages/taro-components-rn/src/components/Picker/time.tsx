@@ -55,7 +55,7 @@ export default class TimeSelector extends React.Component<TimeProps, TimeState> 
   onValueChange = (vals: string[]): void => {
     const now = new Date()
     now.setHours(+vals[0], +vals[1])
-    console.log('11', this.state);
+    console.log('11', this.state)
     this.setState({ value: now })
   }
 

@@ -25,11 +25,11 @@ export interface FormProps {
 }
 
 export interface FormComponentMap {
-  '_Input': InputProps;
-  '_Textarea': TextareaProps;
-  '_CheckboxGroup': CheckboxGroupProps;
-  '_RadioGroup': RadioGroupProps;
-  '_Switch': SwitchProps;
-  '_Slider': SliderProps;
-  '_Picker': MultiSelectorProps;
+  '_Input': InputProps & FormProps;
+  '_Textarea': TextareaProps & FormProps;
+  '_CheckboxGroup': CheckboxGroupProps & FormProps;
+  '_RadioGroup': RadioGroupProps & FormProps;
+  '_Switch': SwitchProps & FormProps;
+  '_Slider': SliderProps & FormProps;
+  '_Picker': MultiSelectorProps & FormProps;
 }

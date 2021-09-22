@@ -14,7 +14,7 @@ export class _Camera extends Component<CameraProps, CameraState> {
     }
   }
 
-  expoCameraRef: Camera | null
+  expoCameraRef = React.createRef<Camera>()
 
   async componentDidMount(): Promise<void> {
     const { status } = await Camera.requestPermissionsAsync()
@@ -27,8 +27,8 @@ export class _Camera extends Component<CameraProps, CameraState> {
     this.props.onError && this.props.onError(event as any)
   }
 
-  onInitDone = (e) => {
-    global._taroCamera = this.expoCameraRef && this.expoCameraRef['current']
+  onInitDone = (): void => {
+    global._taroCamera = this.expoCameraRef && this.expoCameraRef.current
     const event: any = {}
     this.props.onInitDone && this.props.onInitDone(event)
   }
@@ -64,7 +64,7 @@ export class _Camera extends Component<CameraProps, CameraState> {
         : {}
     return (
       <Camera
-        ref={(ref) => this.expoCameraRef = ref}
+        ref={this.expoCameraRef}
         type={type}
         flashMode={flash}
         onMountError={this.onError}

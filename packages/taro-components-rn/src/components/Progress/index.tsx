@@ -145,5 +145,3 @@ export default class _Progress extends React.Component<ProgressProps, ProgressSt
     )
   }
 }
-
-

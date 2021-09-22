@@ -131,7 +131,7 @@ export class _Image extends React.Component<ImageProps, ImageState> {
   }
 
   render(): JSX.Element {
-    const { style, src, mode ='scaleToFill' } = this.props
+    const { style, src, mode = 'scaleToFill' } = this.props
 
     const flattenStyle = StyleSheet.flatten(style) || {}
 

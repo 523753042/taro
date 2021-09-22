@@ -1,4 +1,4 @@
-import { FormItemProps } from '@tarojs/components';
+import { FormItemProps } from '@tarojs/components'
 import * as React from 'react'
 import { ViewStyle, StyleProp } from 'react-native'
 
@@ -12,7 +12,6 @@ export type EventGroupOnChange = {
     value: any[];
   };
 };
-
 
 export interface CheckboxGroupProps extends FormItemProps {
   children?: React.ReactNode;

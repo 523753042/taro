@@ -275,7 +275,8 @@ class _Video extends Component<Props, any> {
 
   onLoadedMetaData = (event: VideoReadyForDisplayEvent): void => {
     const { naturalSize, status } = event
-    status['duration'] = status['durationMillis']
+    // @ts-ignore
+    status.duration = status.durationMillis
     // @ts-ignore
     this.props.onLoadedMetaData && this.props.onLoadedMetaData({ detail: { ...naturalSize, ...status } })
   };

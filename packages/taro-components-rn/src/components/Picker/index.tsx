@@ -53,9 +53,9 @@ export default class _Picker extends React.Component<any> {
     } else if (mode === 'time') {
       return <TimeSelector {...this.props} />
     } else if (mode === 'date') {
-      return <DateSelector  {...this.props} />
+      return <DateSelector {...this.props} />
     } else if (mode === 'region') {
-      return <RegionSelector  {...this.props} />
+      return <RegionSelector {...this.props} />
     } else {
       return null
     }

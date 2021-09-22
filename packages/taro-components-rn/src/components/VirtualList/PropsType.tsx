@@ -1,6 +1,6 @@
 import React, { ComponentType } from 'react'
-import { ListRenderItemInfo } from 'react-native'
-import { StyleProp, ViewStyle, NativeSyntheticEvent, NativeScrollEvent } from 'react-native'
+import { ListRenderItemInfo, StyleProp, ViewStyle, NativeSyntheticEvent, NativeScrollEvent } from 'react-native'
+
 export interface ViewProps {
   style?: StyleProp<ViewStyle>;
   children?: React.ReactNode;
