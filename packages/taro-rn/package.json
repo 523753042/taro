@@ -65,7 +65,7 @@
     "@types/react-native": "0.64.10",
     "babel-plugin-jest-hoist": "^26.6.2",
     "cpy-cli": "^3.1.1",
-    "jest-expo": "^39.0.0",
+    "jest-expo": "^45.0.1",
     "mock-socket": "^7.1.0",
     "react-native": "^0.64.0",
     "rimraf": "^3.0.0"
