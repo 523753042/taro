@@ -32,7 +32,7 @@
     "@unimodules/core": "~5.5.1",
     "@unimodules/react-native-adapter": "~5.6.0",
     "expo-asset": "^8.2.0",
-    "expo-av": "~8.6.0",
+    "expo-av": "~12.0.4",
     "expo-barcode-scanner": "~9.0.0",
     "expo-camera": "~9.0.0",
     "prop-types": "^15.6.2",
@@ -60,7 +60,7 @@
   "peerDependencies": {
     "@react-native-community/slider": "4.0.0-rc.3",
     "@react-native-picker/picker": "^1.16.4",
-    "expo-av": "~8.6.0",
+    "expo-av": "~12.0.4",
     "expo-barcode-scanner": "~9.0.0",
     "expo-camera": "~9.0.0",
     "react-native-pager-view": "^5.4.0",
